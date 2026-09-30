@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Attendance</title>
+<meta name="theme-color" content="#1F3864">
+<!-- The whole app is this one file: the manifest that makes it installable,
+     and its icon, are carried inside it rather than sitting beside it. -->
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiUHJpbmNlIEZvb3R3ZWFyIFx1MjAxNCBBdHRlbmRhbmNlIiwic2hvcnRfbmFtZSI6IkF0dGVuZGFuY2UiLCJkZXNjcmlwdGlvbiI6IlRhcCB5b3VyIG5hbWUgd2hlbiB5b3UgY29tZSBpbiwgZ28gZm9yIGx1bmNoLCBjb21lIGJhY2ssIGFuZCBnbyBob21lLiIsInN0YXJ0X3VybCI6Ii4iLCJzY29wZSI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYxNzJhIiwidGhlbWVfY29sb3IiOiIjMUYzODY0IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBTUFBQUFEQUNBSUFBQURkdnZ0UUFBQUU2MGxFUVZSNG5PM2QwVzNrVmhCRTBTZGo4NUREME9ZalIrV0FuSVpEOFFjQllpQlp3OGNwa2wzVnZPZmJnQitiZDNvb2VxMTllLy80SE1Dci9xZytBTElSRUNRRUJBa0JRVUpBa0JBUUpBUUVDUUZCUWtDUUVCQWtCQVFKQVVGQ1FKQVFFQ1FFQkFrQlFVSkFrQkFRSkFRRUNRRkJRa0NRRUJBa0JBUUpBVUZDUUpBUUVDUUVCQWtCUVVKQWtCQVFKQVFFQ1FGQlFrQ1FFQkFrQkFRSkFVRkNRSkQ4cWo2QWkzLy8rWHZYUC8vbjc3OU9Pa21XdDl2K210Kzl4VHgzMjU3dUZkQ3gwZnprVmpIZElxQnJ1dm51RGlVMUQ2Z3FuVWU5TStvWmtFTTMzN1VzcVZ0QW51azhhcFpScS9kQS92V01rRVBPYTdLQkV1OUtqMVVVSDFCaU9vL1NNOG9PcU9wbElDOGhWOEVCNlhmeHFEdm5jNUxyUlFZazNyRHo3cGJ0d2M2VEY5RExOK25LMnhOeHlFT0VCZlRhamFtNksxbW5mVTFTUUMvY0Q0ZWJFWHJzU1RFQnBmOTVuZlR6L3lRam9GM1RkeDU5bXd0WkJmeW5qRTVEMzNXOGlIZWs3aHRvZm9qbTZYelI1cnFzTjFDYktYOVg5ZGI3Y0w0Qk5hNW4wYU1oMDREYTE3Tm8wRkR3LzlZVG5jNXF1UXJiUGpZNWJxQ1phZmFvWnpWek9aNlIyUVhrT1NZVGhzUHgrakYrY2tCbnI1OG54emoxWDIxeStidlliYUJOVnVNN1Z1S2xHUVYwdzBlZjcrSWVob3dDMnRTK25rWFdaYm9FWlBXcDh1Y3pMb3VBK1BMNkl1aUx6Q0tnVGJlcVo1Rnl5ZlVCbVh5U0VqbU1yajZnVFNtZnhjTkZYSGhBUUhCV0hORG1Fbzc0Rko1bjgvTEx2OFhZUUpCVUJzVDZtV0craE5oQWtQZ0d4UHBaT1kraUxLRHlwNzlPQ29mcHU0RVF3VFFnNTZWZHduWWdwZ0VoUlUxQVBBQWRybXFramh2SWRsM1g4aHlMWTBBSVFrQ1FFQkFrQlFIeEJIMlNrc0hhYlNEUFIwVVRoc094Q3doWkNBaVM0Ri92VWtKNXpqRDhBdEt4Z1NBaElFZ0lDQklDZ29TSDZQL3grTFRMYTgvbjJFQ1FFQkFrQkFRSnowQWJXcjc5T3hBYkNCSzdnUGlwNXduRDRSUUV4SmZDU1VvR2E3ZUJrSVdBSUNFZ1NCd0RNbnhVZE9BNWxwcUFlSTQrWE5WSUhUY1FncGdHNUxtdUM5a094RFFncENnTGlNZWdBeFVPMDNjRDJTN3Q2em1Qd2pjZ1JLZ015UHczSUpzdy8yM2FiQ0JJaWdOaUNUMW52bjVHZVVCSUZ4RFFiWmRReElYWEIxUytoSE01aks0K29Ca1JuOFZqcFZ5eVJVQkJmMG54TllMK0dtdUxnSWJOT0ZMNGpNc2xvQmszV1VKWmwya1VFRjlrSStyTGEyRVUwS1RHRFNWZW1sZEFrNSt0eEVGdm1yd29xL1V6M0FJYWZnT3lZamdjdTRER0xSK0c0aDU5VnNHL25XTVp1dWRZNTZWL0VodzMwTmlUUmZRTm1EKzg3ZWZFTktCeGc0WWExRE9jQXhxdEcrcFJ6eGpqN2YzanMvb01HM2JGWVQ3dTBlNXlyRGZRWXRjUXpWZFJzM3BHeEFaYTdDM0RiZnJwNS85SlRFRGpwZTNpY0J0Q2p6MHBLYUR4NmpkVTFmM0lPdTFyd2dJYXdsUE9sVGNtNHBDSHlBdG95RS9LNTkwazI0T2RKektnaGY0RDExRTN6T2NrMXdzT2FCejlRM3ZWZTh2Y2VrWjZRTVAreGMrbTZIcEdnNEFXaVJtbHA3Tm9FdEFpSmFNZTZTd0MvbFBHdklnYkUzSEllYTAyME1wekZUVkxaOUV6b0pWRFNTMjdXVFVQYUZHVlVlOTBGcmNJYUhWTlNYZm9abld2Z0I3eE12QVE5dzNvaTY1L1h1ZHNCQVJKcS9kQXVCNEJRVUpBa0JBUUpBUUVDUUZCUWtDUUVCQWtCQVFKQVVGQ1FKQVFFQ1FFQkFrQlFVSkFrQkFRSkFRRUNRRkJRa0NRRUJBa0JBUUpBVUZDUUpBUUVDUUVCQWtCUVVKQWtCQVFKQVFFQ1FGQlFrQ1FFQkFrQkFRSkFVRkNRSkFRRUNRRUJNbC9IMldkUEF4d296b0FBQUFBU1VWT1JLNUNZSUk9Iiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3BuZyIsInB1cnBvc2UiOiJhbnkifSx7InNyYyI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBSUFBQUI3R2tPdEFBQU45a2xFUVZSNG5PM2Q3WEVrdHhXRzBaRnE4NUREa1BPUm8xSkFTc09oK01lNHRxZ1ZseHgyNCtOZXZPY0VvR0pOQS9jQmVpanVMNy85L3NjRGdEeS83djRCQU5oREFBQkNDUUJBS0FFQUNDVUFBS0VFQUNDVUFBQ0VFZ0NBVUFJQUVFb0FBRUlKQUVBb0FRQUlKUUFBb1FRQUlKUUFBSVFTQUlCUUFnQVFTZ0FBUWdrQVFDZ0JBQWdsQUFDaEJBQWdsQUFBaEJJQWdGQUNBQkJLQUFCQ0NRQkFLQUVBQ0NVQUFLRUVBQ0NVQUFDRUVnQ0FVQUlBRUVvQUFFSUpBRUFvQVFBSUpRQUFvUVFBSUpRQUFJUVNBSUJRQWdBUVNnQUFRZ2tBUUNnQkFBZ2xBQUNoQkFBZ2xBQUFoQklBZ0ZBQ0FCQktBQUJDQ1FCQUtBRUFDQ1VBQUtFRUFDQ1VBQUNFRWdDQVVBSUFFRW9BQUVJSkFFQW9BUUFJSlFBQW9RUUFJSlFBQUlRU0FJQlFBZ0FRU2dBQVFna0FRQ2dCQUFnbEFBQ2hCQUFnbEFBQWhCSUFnRkFDQUJCS0FBQkNDUUJBS0FFQUNDVUFBS0VFQUNDVUFBQ0VFZ0NBVUFJQUVFb0FBRUlKQUVBb0FRQUlKUUFBb1FRQUlKUUFBSVFTQUlCUUFnQVFTZ0FBUWdrQVFDZ0JBQWdsQUFDaEJBQWdsQUFBaEJJQWdGQUNBQkJLQUFCQ0NRQkFLQUVBQ0NVQUFLRys3ZjRCWUpiLy92WG5rUC9Pdi83OW55SC9IYWptbDk5Ky8yUDN6d0RYalpyeTEyZ0RyUWtBYmV5ZDlhOVRCYm9RQU9ycU12RS9wZ2VVSlFEVWNzYlEveGt4b0JRQllMK3poLzdQaUFIYkNRRGJaTTc5ZjFJQ2RoRUFWalAzZjBZSldFd0FXTVRjZjUwU3NJWUFNSmU1ZjRjU01KVUFNSVc1UDVZU01JTUFNSmpSUDQ4TU1KWUFNSWE1djVJU01JUUFjSmZSdjRzTWNKTUFjSjNSWDRFTWNKa0FjSVhSWDQwTWNJRUE4RFZHZjJVeXdKY0lBSzh5K3J1UUFWNGtBSHpPNk85SUJ2aVVBUEFSbzc4N0dlQURBc0Q3alA2VHlBRHYrblgzRDBCRnB2OWhQRkRlNVFiQTM1Z1VaM01WNEMwQjRQK00vaHd5d0pOWFFEd2VwbjhZajVzbk40QjBaa0V5VjRGd2JnRFJUUDl3RmtBNE40QlFkajV2dVFwa0VvQkVPZFAvL2x6eldYRXdBWWh6NUVSYlA3eDhqQnhBQUlJY003TnF6aWtmTCswSVFJclc0Nm5qU1BLQlU1OEFSR2c2ak00WVF6NTh5aEtBdzdXYlBtZlBIWStEVWdUZ1pJM0dUZHFnOFdpb1FBQ08xV0xFR0M0ZUV4c0p3Sm1LanhVRDVaODhNdFlUZ05PWUk2MTVmS3drQUVlcFBEN01qdGQ1anF3aEFPZW9PVFhNaXpzOFU2WVNnRU1VbkJUR3hDZ2VMcE1Jd0FtcURRalRZUVpQbWVFRW9MMVNjOEZRbU0zalppQUI2SzNPT0RBTFZ2TGNHY0svQ05hWUtSQ3J6Z2RlWnhGeWdSdEFWMFUyWHAxSmxNa3k0QTRCYUtuQ3RyZm42N0FldU1Zcm9IN3NkbjVRNFhGVVdKWjhsUnRBTTl1M1dZVlp3ODlZSG55SkFIU3lkM3ZiMjExWUo3eklLNkEyN0dwZXRQZGhiYitGOERvQjZNSDA1MHMwZ0ZkNEJkVEF4dTFrOUhkbjhmQUJONERxYkdEdTJQZ1EzUVBxRXdEZVovb2Z3NlBrWjd3Q0ttM0xHY3E4T0pYbHhBL2NBT3F5WFJscnk4UDFJcWd5QVNqSzlHY0dEZUF0QWFqSTlHY2VEZUM3Yjd0L0FQWXordE04bjdpaGpCdEFPWXUzcGVrZmEvR2oxNXVDQktBVzA1K1ZOQ0NjQUJSaStyT2VCaVFUZ0ZDbVA5OVpETEVFb0lxVkp5TWJuaCtzWEJJdUFYVUlRQW1tUDl0cFFDQUIyTS8wcHdnTlNDTUFRVXgvUG1XUlJCR0F6WmFkZzJ4c1hyUnNxYmdFYk9ldmdlNWsrazgxOE9NTi9BQXR6Z1J1QU9lendiakFza2tnQU51NC84TERSdGhLQVBad3Y2WStYd1ljVHdCT1p2cHpreVYwTmdIWVlNMTV4OVpsaURVTHlTVmdDd0U0aytuUFFKYlRxUVJnTlNjZGVKZXRzWjRBTE9YbEQwMTVFWFFrQVRpTjZjOGtsdFo1QkdDZEJhY2JXNVNwRml3d2w0Q1ZCQUFnbEFBczR2alBHVndDVGlJQWh6RDlXY1ppTzRZQXJERDdSR05Ec3Rqc0plY1NzSVlBQUlRU2dPa2Mvem1TUzhBQkJBQWdsQURNNWZqUHdWd0N1aE9BeGt4L3RyTUlXeE9BaVp4ZjRDYWJhQ29CNk1ySml5SXN4YjRFWUJZbkZ4akNWcHBIQUZweTVxSVVDN0lwQVpoaTZwbkZacU9ncWN2U0pXQVNBUUFJSlFETk9QNVRsc1haamdDTTU3b0t3OWxXTXdoQUowNVlGR2VKOWlJQWd6bW53Q1EyMTNBQzBJYXpGUzFZcUkwSUFFQW9BUmhwM2hYVnFZcEc1aTFYYjRIR0VnQ0FVQUlBRUVvQWh2SCtCNzd6RnFnRkFRQUlKUURWT2Y3VGxLVmJud0NNNFZvS3k5aHVvd2hBYWM1UXRHWUJGeWNBQUtFRVlBQVhVbGpNcGh0Q0FPcHlmZVlBbG5GbEFnQVFTZ0R1Y2hXRkxXeTkrd1NnS0JkbmptRXhseVVBQUtFRUFDQ1VBTnd5NlMya0t6T0htYlNrZlExd2t3QUFoQklBZ0ZBQ0FCQktBSzd6QlFDOHp0Y0FCUWtBUUNnQkFBZ2xBTFY0LzhQQkxPOXFCQUFnbEFCYzVLc25LTUptdkV3QUFFSUpBRUFvQVNqRVYyUWN6eUl2UlFBQVFna0FRQ2dCQUFnbEFGZjR0VE1veFphOFJnQUFRZ2xBRlg0N2doQ1dlaDBDQUJCS0FBQkNDUUJBS0FFQUNDVUFBS0VFQUNEVXQ5MC9RRC8rbDVOQWxSKzYzNnA4K3U5ZmYvb292c29Ob0FRTGx5Z1dmQkVDQUJCS0FBQkNDUUJBS0FFQUNDVUFBS0VFQUNDVUFBQ0VFZ0NBVUFJQUVFb0FBRUlKQUVBb2Z3eU9ZNzN5QjJjcS81VTNtTTBOQUNDVUFBQ0VFZ0NBVUFJQUVFb0FBRUlKQUVBb0FRQUlKUUFBb1FRQUlKUUFsT0QvUnlXS0JWK0VBSHpaSzM5Z0FGak14cnpBM3dJaW1xbEJNamNBZ0ZBQ0FCQktBQUJDQ1FCQUtBRUFDQ1VBVmZqTmFFSlk2blVJQUVBb0FiakNMNDlES2Jia05RSUFFRW9BQUVJSkFFQW9BU2pFYjBkd1BJdThGQUVBQ0NVQUFLRUU0Q0svZGdaRjJJeVhDUUJBS0FHb3hWZGtITXp5cmtZQUFFSUpBRUFvQWJodTBsZFByc2tjYWRMQzlnM3dIUUlBRUVvQUFFSUpBRUFvQWJqRjF3RHdDbDhBMUNRQUFLRUVBQ0NVQUJUbExSREhzSmpMRW9DN3ZJV0VMV3k5K3dRQUlKUUExT1hpekFFczQ4b0VZQUJYVVZqTXBodENBQUJDQ1VCcHJzKzBaZ0VYSndCanVKRENNcmJiS0FKUW5UTVVUVm02OVFrQVFDZ0JHR2JldGRSSmluYm1MVnJ2ZndZU0FJQlFBZ0FRU2dCRzhoWUlIdDcvOUNFQUFLRUVvQTJYQUZxd1VCc1JnTUZjVVdFU20yczRBZWpFMllyaUxORmVCR0E4NXhRWXpyYWFRUUNhY2NLaUxJdXpIUUVBQ0NVQVUweTlyanBuVWREVVplbjl6eVFDMEpJR1VJb0YyWlFBek9MTUFrUFlTdk1JUUZmT1hCUmhLZllsQUJNNXVjQk5OdEZVQXRDWWt4ZmJXWVN0Q2NCY3M4OHZ0aDhielY1K2p2K3pDUUJBS0FHWXppV0FJem4rSDBBQUFFSUp3QW91QVJ6RzhmOE1BbkFJRFdBWmkrMFlBckRJZ2hPTmJja0NDNWFaNC84eUFnQVFTZ0RXY1FtZ084Zi93d2pBYVRTQVNTeXQ4d2pBVW10T056WXF3NjFaVkk3L2l3bkFhcFk0dk12V1dFOEF6dVFTd0VDVzA2a0VZQU12Z21qRXk1K0RDY0RKTklDYkxLR3pDY0FleTg0N05qQ1hMVnM4anYrN0NNQTJGajA4YklTdEJPQjhMZ0ZjWU5ra0VJQ2R2QWlpSmk5L1FnakFaaHBBTmFaL0RnRUlvZ0Y4eWlLSklnRDdyVHdIMmQ1OFlPWHljUHl2UUFCSzBBQzJNLzBEQ1VBVkdzQkdwbjhtQVFpbEFYeG5NY1FTZ0VJV240eHNleDdMbDRIamZ5a0NVSXNHc0pMcEgwNEF5dEVBMWpEOStiYjdCMkMvNXlDd1AzT29Qazl1QUJWdG1jV0dRb2d0RDlyeG9pWUJLRW9EbU1IMDV5MEJxRXNER012MDV3ZS8vUGI3SDd0L0JqNnlheUxidHlleGluaVhHd0R2Y3hVNGhrZkp6d2hBZFJ2UFVBYkhBVFkrUk1mLytyd0M2bUh2TExhVE83Sm0rSlFiUUE5N3Q1T3JRRHVtUDY4UWdEWTBnQmVaL3J6SUs2Qm10ZzlpMjdzeXk0TXZFWUIrdG0veWgzMWVqMVhCQlY0QjlWTmhtMVVZTjN4WDRYRlVXSlo4bFJ0QVZ4WDIvTU8yMzgweTRBNEJhS3pJNW4vWS96dDQrdHpuRlZCamRUWmVuV0VVb3M0SFhtY1Jjb0ViUUh0MVpzSERPSmpQNDJZZ0FUaEJxYUh3TUJmbThKUVpUZ0FPVVcwNlBBeUljVHhjSmhHQWN4UWNFdytUNGg3UGxLa0U0Q2cxNThXVHFmRTZ6NUUxQk9BMGxXZkh3L2o0ak1mSFNnSndKbk9rSFkrTTlRVGdXTVVIeXBPeDRqR3hrUUNjck1Wd2VVb2JNUjRORlFqQTRSb05tcWV6eDQzSFFTa0NFS0hkM0hrNlkvcjQ4Q2xMQUZJMEhVTlBIWWVSRDV6NkJDQkk2NUgwVnMzeDVPT2xIUUdJYzh5Y2Vtdjl6UEl4Y2dBQlNIVGs4SHJYL1lubXMrSmdBaEFxWjY3eEN0TS9rd0JFa3dHTS9tVCtSYkJvTm44NEN5Q2NHd0NQaDZ0QUhxT2ZoeHNBVDhaQkZJK2JKemNBL3NaVjRHeEdQMjhKQU8rUWdmTVkvZnlUVjBDOHc3QTRqQWZLdTl3QStJaXJRSGRHUHg4UUFENG5BeDBaL1h4S0FIaVZESFJoOVBNaUFlQnJaS0F5bzU4dkVRQ3VrSUZxakg0dUVBQ3VrNEVLakg0dUV3RHVrb0Zkakg1dUVnREdrSUdWakg2R0VBQUdVNEo1ekgzR0VnQ21rSUd4akg1bUVBRG1Vb0k3ekgybUVnQVdVWUxYbWZ1c0lRQ3NwZ1EvWSs2em1BQ3dqUkk4bWZ2c0lnRHNsMWtDYzUvdEJJQmF6bzZCb1U4cEFrQmRaOFRBMEtjc0FhQ05MajB3OGVsQ0FPaHRieFhNZWxvVEFJNDFxZzJtUEtjU0FJQlF2KzcrQVFEWVF3QUFRZ2tBUUNnQkFBZ2xBQUNoQkFBZ2xBQUFoQklBZ0ZBQ0FCQktBQUJDQ1FCQUtBRUFDQ1VBQUtFRUFDQ1VBQUNFRWdDQVVBSUFFRW9BQUVJSkFFQW9BUUFJSlFBQW9RUUFJSlFBQUlRU0FJQlFBZ0FRU2dBQVFna0FRQ2dCQUFnbEFBQ2hCQUFnbEFBQWhCSUFnRkFDQUJCS0FBQkNDUUJBS0FFQUNDVUFBS0VFQUNDVUFBQ0VFZ0NBVUFJQUVFb0FBRUlKQUVBb0FRQUlKUUFBb1FRQUlKUUFBSVFTQUlCUUFnQVFTZ0FBUWdrQVFDZ0JBQWdsQUFDaEJBQWdsQUFBaEJJQWdGQUNBQkJLQUFCQ0NRQkFLQUVBQ0NVQUFLRUVBQ0NVQUFDRUVnQ0FVQUlBRUVvQUFFSUpBRUFvQVFBSUpRQUFvUVFBSUpRQUFJUVNBSUJRQWdBUVNnQUFRZ2tBUUNnQkFBZ2xBQUNoQkFBZ2xBQUFoQklBZ0ZBQ0FCQktBQUJDQ1FCQUtBRUFDQ1VBQUtFRUFDQ1VBQUNFRWdDQVVBSUFFRW9BQUVJSkFFQW9BUUFJSlFBQW9RUUFJSlFBQUlRU0FJQlFBZ0FRU2dBQVFna0FRQ2dCQUFnbEFBQ2gvZ2NpdEM3TFNXbXQxUUFBQUFCSlJVNUVya0pnZ2c9PSIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9wbmciLCJwdXJwb3NlIjoiYW55IG1hc2thYmxlIn1dfQ==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAE60lEQVR4nO3d0W3kVhBE0Sdj85DD0OYjR+WAnIZD8QcBYiBZw8cpkl3VvOfbgB+bd3ooeq19e//4HMCr/qg+ALIRECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJD8qj6Ai3//+XvXP//n779OOkmWt9v+mt+9xTx3257uFdCx0fzkVjHdIqBruvnuDiU1D6gqnUe9M+oZkEM337UsqVtAnuk8apZRq/dA/vWMkEPOa7KBEu9Kj1UUH1BiOo/SM8oOqOplIC8hV8EB6XfxqDvnc5LrRQYk3rDz7pbtwc6TF9DLN+nK2xNxyEOEBfTajam6K1mnfU1SQC/cD4ebEXrsSTEBpf95nfTz/yQjoF3Tdx59mwtZBfynjE5D33W8iHek7htofojm6XzR5rqsN1CbKX9X9db7cL4BNa5n0aMh04Da17No0FDw/9YTnc5quQrbPjY5bqCZafaoZzVzOZ6R2QXkOSYThsPx+jF+ckBnr58nxzj1X21y+bvYbaBNVuM7VuKlGQV0w0ef7+IehowC2tS+nkXWZboEZPWp8uczLouA+PL6IuiLzCKgTbeqZ5FyyfUBmXySEjmMrj6gTSmfxcNFXHhAQHBWHNDmEo74FJ5n8/LLv8XYQJBUBsT6mWG+hNhAkPgGxPpZOY+iLKDyp79OCofpu4EQwTQg56VdwnYgpgEhRU1APAAdrmqkjhvIdl3X8hyLY0AIQkCQEBAkBQHxBH2SksHabSDPR0UThsOxCwhZCAiS4F/vUkJ5zjD8AtKxgSAhIEgICBICgoSH6P/x+LTLa8/n2ECQEBAkBAQJz0AbWr79OxAbCBK7gPip5wnD4RQExJfCSUoGa7eBkIWAICEgSBwDMnxUdOA5lpqAeI4+XNVIHTcQgpgG5LmuC9kOxDQgpCgLiMegAxUO03cD2S7t6zmPwjcgRKgMyPw3IJsw/23abCBIigNiCT1nvn5GeUBIFxDQbZdQxIXXB1S+hHM5jK4+oBkRn8VjpVyyRUBBf0nxNYL+GmuLgIbNOFL4jMsloBk3WUJZl2kUEF9kI+rLa2EU0KTGDSVemldAk5+txEFvmrwoq/Uz3AIafgOyYjgcu4DGLR+G4h59VsG/nWMZuudY56V/Ehw30NiTRfQNmD+87efENKBxg4Ya1DOcAxqtG+pRzxjj7f3js/oMG3bFYT7u0e5yrDfQYtcQzVdRs3pGxAZa7C3Dbfrp5/9JTEDjpe3icBtCjz0pKaDx6jdU1f3IOu1rwgIawlPOlTcm4pCHyAtoyE/K590k24OdJzKghf4D11E3zOck1wsOaBz9Q3vVe8vcekZ6QMP+xc+m6HpGg4AWiRmlp7NoEtAiJaMe6SwC/lPGvIgbE3HIea020MpzFTVLZ9EzoJVDSS27WTUPaFGVUe90FrcIaHVNSXfoZnWvgB7xMvAQ9w3oi65/XudsBARJq/dAuB4BQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBMl/H2WdPAxwozoAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAE60lEQVR4nO3d0W3kVhBE0Sdj85DD0OYjR+WAnIZD8QcBYiBZw8cpkl3VvOfbgB+bd3ooeq19e//4HMCr/qg+ALIRECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJD8qj6Ai3//+XvXP//n779OOkmWt9v+mt+9xTx3257uFdCx0fzkVjHdIqBruvnuDiU1D6gqnUe9M+oZkEM337UsqVtAnuk8apZRq/dA/vWMkEPOa7KBEu9Kj1UUH1BiOo/SM8oOqOplIC8hV8EB6XfxqDvnc5LrRQYk3rDz7pbtwc6TF9DLN+nK2xNxyEOEBfTajam6K1mnfU1SQC/cD4ebEXrsSTEBpf95nfTz/yQjoF3Tdx59mwtZBfynjE5D33W8iHek7htofojm6XzR5rqsN1CbKX9X9db7cL4BNa5n0aMh04Da17No0FDw/9YTnc5quQrbPjY5bqCZafaoZzVzOZ6R2QXkOSYThsPx+jF+ckBnr58nxzj1X21y+bvYbaBNVuM7VuKlGQV0w0ef7+IehowC2tS+nkXWZboEZPWp8uczLouA+PL6IuiLzCKgTbeqZ5FyyfUBmXySEjmMrj6gTSmfxcNFXHhAQHBWHNDmEo74FJ5n8/LLv8XYQJBUBsT6mWG+hNhAkPgGxPpZOY+iLKDyp79OCofpu4EQwTQg56VdwnYgpgEhRU1APAAdrmqkjhvIdl3X8hyLY0AIQkCQEBAkBQHxBH2SksHabSDPR0UThsOxCwhZCAiS4F/vUkJ5zjD8AtKxgSAhIEgICBICgoSH6P/x+LTLa8/n2ECQEBAkBAQJz0AbWr79OxAbCBK7gPip5wnD4RQExJfCSUoGa7eBkIWAICEgSBwDMnxUdOA5lpqAeI4+XNVIHTcQgpgG5LmuC9kOxDQgpCgLiMegAxUO03cD2S7t6zmPwjcgRKgMyPw3IJsw/23abCBIigNiCT1nvn5GeUBIFxDQbZdQxIXXB1S+hHM5jK4+oBkRn8VjpVyyRUBBf0nxNYL+GmuLgIbNOFL4jMsloBk3WUJZl2kUEF9kI+rLa2EU0KTGDSVemldAk5+txEFvmrwoq/Uz3AIafgOyYjgcu4DGLR+G4h59VsG/nWMZuudY56V/Ehw30NiTRfQNmD+87efENKBxg4Ya1DOcAxqtG+pRzxjj7f3js/oMG3bFYT7u0e5yrDfQYtcQzVdRs3pGxAZa7C3Dbfrp5/9JTEDjpe3icBtCjz0pKaDx6jdU1f3IOu1rwgIawlPOlTcm4pCHyAtoyE/K590k24OdJzKghf4D11E3zOck1wsOaBz9Q3vVe8vcekZ6QMP+xc+m6HpGg4AWiRmlp7NoEtAiJaMe6SwC/lPGvIgbE3HIea020MpzFTVLZ9EzoJVDSS27WTUPaFGVUe90FrcIaHVNSXfoZnWvgB7xMvAQ9w3oi65/XudsBARJq/dAuB4BQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBAkBQUJAkBAQJAQECQFBQkCQEBAkBAQJAUFCQJAQECQEBMl/H2WdPAxwozoAAAAASUVORK5CYII=">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html,body{height:100%}
+body{margin:0;font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+     background:#0f172a;color:#e2e8f0}
+header{background:#1F3864;color:#fff;padding:14px 18px;display:flex;align-items:baseline;
+       justify-content:space-between;gap:12px;padding-top:calc(14px + env(safe-area-inset-top))}
+header b{font-size:19px}
+header .d{font-size:13px;opacity:.85;white-space:nowrap}
+.wrap{padding:16px}
+
+/* Three across, two rows of three for six people - the whole shop on one
+   screen with nothing to scroll for. Two across on a narrow phone, where
+   three would be too thin to hit without looking. */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:620px){ .grid{grid-template-columns:repeat(2,1fr);gap:12px} }
+.person{border:0;border-radius:18px;padding:30px 12px;background:#1e40af;color:#fff;
+        font-size:clamp(20px,3.2vw,30px);font-weight:800;letter-spacing:.2px;
+        min-height:clamp(130px,22vh,190px);width:100%;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.person small{font-size:13px;font-weight:600;opacity:.85}
+.person.done{background:#1e293b;color:#64748b}
+.person:active{transform:scale(.98)}
+
+.msg{position:fixed;left:0;right:0;bottom:0;padding:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom));
+     font-size:20px;font-weight:700;text-align:center;transform:translateY(110%);transition:transform .18s}
+.msg.show{transform:translateY(0)}
+.msg.ok{background:#047857;color:#fff}
+.msg.no{background:#b91c1c;color:#fff}
+.msg.wait{background:#1e3a5f;color:#fff}
+
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:14px;margin-bottom:14px}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#94a3b8;margin-bottom:5px}
+input,textarea{width:100%;padding:13px;font-size:16px;border:1px solid #475569;border-radius:10px;
+      background:#0f172a;color:#e2e8f0;user-select:text;font-family:inherit}
+textarea{min-height:150px;line-height:1.7}
+.setbtn{margin-top:10px;padding:14px;width:100%;border:0;border-radius:10px;background:#2563eb;
+        color:#fff;font-weight:700;font-size:16px}
+.setbtn.g{background:#334155}
+.muted{color:#94a3b8;font-size:13px}
+.bar{display:flex;align-items:center;gap:10px;padding:0 18px 16px;
+     padding-bottom:calc(16px + env(safe-area-inset-bottom));color:#475569;font-size:12px}
+.bar .grow{flex:1}
+.bar button{background:transparent;border:0;color:#475569;font-size:12px;padding:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block}
+.dot.off{background:#b45309}
+.pend{color:#b45309;font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <div><b id="shop">Attendance</b></div>
+  <span class="d" id="dateLine"></span>
+</header>
+
+<div class="wrap">
+  <div class="card" id="setupCard" style="display:none">
+    <label>Names, one to a line</label>
+    <textarea id="names" spellcheck="false" autocapitalize="words"></textarea>
+    <button class="setbtn" id="save">Save</button>
+    <button class="setbtn g" id="cancel">Cancel</button>
+    <p class="muted" style="margin:12px 0 0">The names are kept on this phone. Everything else is already
+      set &mdash; there is nothing to paste in.</p>
+  </div>
+  <div class="grid" id="people"></div>
+</div>
+
+<div class="bar">
+  <span class="dot" id="dot"></span>
+  <span id="state">&nbsp;</span>
+  <span class="grow"></span>
+  <button id="setup">settings</button>
+</div>
+
+<div id="msg" class="msg"></div>
+
+<script>
+/* -------------------------------------------------------------------------
+   The attendance app
+
+   It hangs on a wall or sits in a pocket and it does one thing. Names, nothing
+   else. Tap your own and the time is written down - coming in, going for
+   lunch, coming back, going home, in that order, so nobody has to choose which
+   one they mean.
+
+   It is one file, so there is one thing to put on the site and nothing beside
+   it to keep in step. It can be added to a phone's home screen and it opens
+   full screen like an app.
+
+   A mark is written on the phone the instant it is tapped and shown as marked;
+   it goes up to the sheet when there is internet, on its own. A wifi that
+   drops in the middle of the morning therefore costs nothing. What it cannot
+   do, being one file, is open from cold with no signal at all - that needs a
+   second file beside it, and the shop decided two files was the point.
+
+   The clock is the phone's, corrected against the sheet whenever they speak,
+   so a phone whose time has drifted still writes down the right minute.
+
+   It keeps to itself: it talks only to the sheet, and nothing in the shop
+   program reaches into it.
+------------------------------------------------------------------------- */
+var $ = function (i) { return document.getElementById(i); };
+/* The shop's own sheet, built in, so nobody is ever asked to paste a link and
+   no phone can be pointed at the wrong one. */
+var EXEC = "https://script.google.com/macros/s/AKfycbwEt_03-oIDaeWRVgSd7UVfsBlF83N3yNm2H0FH_SEUSyZe6sPmq2bYwnOlgQRlZEBo/exec";
+
+var K_NAMES = "pf_punch_names", K_Q = "pf_punch_queue",
+    K_SEEN = "pf_punch_seen", K_SKEW = "pf_punch_skew";
+
+var DEFAULT_NAMES = ["Sikandar","Samir","Sahil","Nilesh","Abbas","Sachin"];
+var MARKS = [["in","came in"],["lo","out for lunch"],["li","back from lunch"],["out","left"]];
+
+var NAMES = [], QUEUE = [], SEEN = { date:"", marks:[] }, SKEW = 0, BUSY = false;
+
+function get(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
+function put(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+
+NAMES = get(K_NAMES, DEFAULT_NAMES);
+QUEUE = get(K_Q, []);
+SEEN  = get(K_SEEN, { date:"", marks:[] });
+SKEW  = get(K_SKEW, 0);
+
+/* ---------- the clock ---------- */
+function nowDate(){ return new Date(Date.now() + SKEW); }
+function today(){
+  var d = nowDate();
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function hhmm(){
+  var d = nowDate();
+  return String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+}
+/* Kept as 09:31 so it sorts and compares; shown as 9:31 am, because that is
+   how a shop says it. Nobody reads 18:05 off a wall. */
+function ampm(t){
+  var m = /^(\d{1,2}):(\d{2})$/.exec(String(t||""));
+  if (!m) return t || "";
+  var h = Number(m[1]), s = h < 12 ? "am" : "pm";
+  h = h % 12; if (!h) h = 12;
+  return h + ":" + m[2] + " " + s;
+}
+/* The sheet tells us its time whenever it answers; the difference is kept so
+   the marks made with no signal are still stamped to the right minute. */
+function learnClock(serverHHMM, serverDate){
+  if (!serverHHMM || !serverDate) return;
+  var p = serverHHMM.split(":");
+  var s = new Date(serverDate + "T00:00:00");
+  s.setHours(Number(p[0]), Number(p[1]), 0, 0);
+  var diff = s.getTime() - Date.now();
+  /* a minute either way is the rounding, not a drift worth carrying */
+  if (Math.abs(diff) > 90000) { SKEW = diff; put(K_SKEW, SKEW); }
+}
+
+/* ---------- what is known about today ---------- */
+function marksToday(){
+  if (SEEN.date !== today()) SEEN = { date: today(), marks: [] };
+  var all = SEEN.marks.slice();
+  QUEUE.forEach(function(q){ if (q.date === today()) all.push({ name:q.name, mark:q.mark, time:q.time }); });
+  return all;
+}
+function forPerson(name){
+  var mine = {};
+  marksToday().forEach(function(m){ if (m.name === name) mine[m.mark] = m.time; });
+  return mine;
+}
+function nextFor(name){
+  var mine = forPerson(name);
+  for (var i=0; i<MARKS.length; i++) if (!mine[MARKS[i][0]]) return MARKS[i];
+  return null;
+}
+
+/* ---------- the screen ---------- */
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){
+    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
+  });
+}
+function say(html, kind){
+  var m = $("msg");
+  m.className = "msg show " + (kind || "ok");
+  m.innerHTML = html;
+  clearTimeout(say._t);
+  say._t = setTimeout(function(){ m.className = "msg " + (kind || "ok"); }, 2600);
+}
+function niceDate(){
+  var d = nowDate();
+  var mo = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return d.getDate() + " " + mo[d.getMonth()];
+}
+function draw(){
+  $("dateLine").textContent = niceDate();
+  $("people").innerHTML = NAMES.map(function(name){
+    var nx = nextFor(name);
+    return '<button class="person' + (nx ? "" : " done") + '"'
+      + (nx ? ' onclick="mark(' + esc(JSON.stringify(name)) + ')"' : ' disabled')
+      + '>' + esc(name) + (nx ? '' : '<small>done for today</small>') + '</button>';
+  }).join("")
+  || '<div class="card muted">No names yet. Open <b>settings</b> below and type them, one to a line.</div>';
+  var pend = QUEUE.length;
+  $("dot").className = "dot" + (navigator.onLine ? "" : " off");
+  $("state").innerHTML = navigator.onLine
+    ? (pend ? '<span class="pend">' + pend + ' waiting to go up</span>' : "saved")
+    : (pend ? '<span class="pend">no internet — ' + pend + ' held on this phone</span>'
+            : "no internet — marks will be held here");
+}
+
+/* ---------- marking ---------- */
+function mark(name){
+  var nx = nextFor(name);
+  if (!nx) return;
+  var rec = { id: String(Date.now()) + Math.random().toString(36).slice(2,7),
+              date: today(), name: name, mark: nx[0], time: hhmm() };
+  /* Written on the phone first, and shown as marked at once. Whether the
+     internet is there decides when it goes up, not whether it counted. */
+  QUEUE.push(rec); put(K_Q, QUEUE);
+  draw();
+  say(esc(name) + " — " + nx[1] + " at " + ampm(rec.time), "ok");
+  if (navigator.vibrate) navigator.vibrate(45);
+  flush();
+}
+
+/* ---------- the sheet ---------- */
+function ask(body){
+  return fetch(EXEC, { method:"POST",
+    headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    body: JSON.stringify(body) }).then(function(r){ return r.json(); });
+}
+function flush(){
+  if (BUSY || !QUEUE.length || !navigator.onLine) return;
+  BUSY = true;
+  var batch = QUEUE.slice(0, 20);
+  ask({ attend:"push", names:NAMES, marks:batch }).then(function(r){
+    BUSY = false;
+    if (!r || !r.ok) return;
+    var done = {};
+    (r.saved || batch.map(function(b){ return b.id; })).forEach(function(id){ done[id] = 1; });
+    QUEUE = QUEUE.filter(function(q){ return !done[q.id]; });
+    put(K_Q, QUEUE);
+    if (r.list) take(r.list);
+    draw();
+    if (QUEUE.length) flush();
+  }).catch(function(){ BUSY = false; });
+}
+function take(d){
+  if (!d || !d.ok) return;
+  learnClock(d.now, d.date);
+  if (d.shop) $("shop").textContent = d.shop;
+  SEEN = { date: d.date, marks: [] };
+  (d.staff || []).forEach(function(p){
+    Object.keys(p.marks || {}).forEach(function(k){
+      SEEN.marks.push({ name:p.name, mark:k, time:p.marks[k] });
+    });
+  });
+  put(K_SEEN, SEEN);
+}
+function load(){
+  if (!navigator.onLine) { draw(); return; }
+  ask({ attend:"list", names:NAMES }).then(function(d){
+    take(d); draw(); flush();
+  }).catch(function(){ draw(); });
+}
+
+/* ---------- settings ---------- */
+function openSetup(){
+  $("names").value = NAMES.join("\n");
+  $("setupCard").style.display = "";
+  $("people").style.display = "none";
+}
+function closeSetup(){
+  $("setupCard").style.display = "none";
+  $("people").style.display = "";
+}
+$("setup").onclick = openSetup;
+$("cancel").onclick = closeSetup;
+$("save").onclick = function(){
+  NAMES = $("names").value.split("\n").map(function(s){ return s.trim(); }).filter(Boolean);
+  put(K_NAMES, NAMES);
+  closeSetup(); draw(); load();
+  say("Saved", "ok");
+};
+
+/* ---------- keeping up ---------- */
+window.addEventListener("online",  function(){ draw(); load(); });
+window.addEventListener("offline", draw);
+setInterval(function(){ if (SEEN.date && SEEN.date !== today()) { SEEN = { date:today(), marks:[] }; draw(); } flush(); }, 60000);
+setInterval(function(){ if (!document.hidden) load(); }, 300000);
+document.addEventListener("visibilitychange", function(){ if (!document.hidden) load(); });
+
+draw();
+load();
+</script>
+</body>
+</html>
