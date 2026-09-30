@@ -33,6 +33,8 @@ header .d{font-size:13px;opacity:.85;white-space:nowrap}
         min-height:clamp(130px,22vh,190px);width:100%;
         display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
 .person small{font-size:13px;font-weight:600;opacity:.85}
+/* green while they are in, so a glance at the wall says who is on the floor */
+.person.here{background:#15803d}
 .person.done{background:#1e293b;color:#64748b}
 .person:active{transform:scale(.98)}
 
@@ -94,9 +96,10 @@ textarea{min-height:150px;line-height:1.7}
    The attendance app
 
    It hangs on a wall or sits in a pocket and it does one thing. Names, nothing
-   else. Tap your own and the time is written down - coming in, going for
-   lunch, coming back, going home, in that order, so nobody has to choose which
-   one they mean.
+   else. Tap your own and the time is written down. The first tap of the day is
+   coming in, the next is going out, and so it goes - lunch, a run to the
+   godown, home - so nobody has to choose which button this one is. At midnight
+   the day starts empty again.
 
    It is one file, so there is one thing to put on the site and nothing beside
    it to keep in step. It can be added to a phone's home screen and it opens
@@ -120,12 +123,19 @@ var $ = function (i) { return document.getElementById(i); };
 var EXEC = "https://script.google.com/macros/s/AKfycbwEt_03-oIDaeWRVgSd7UVfsBlF83N3yNm2H0FH_SEUSyZe6sPmq2bYwnOlgQRlZEBo/exec";
 
 var K_NAMES = "pf_punch_names", K_Q = "pf_punch_queue",
-    K_SEEN = "pf_punch_seen", K_SKEW = "pf_punch_skew";
+    K_SEEN = "pf_punch_seen", K_SKEW = "pf_punch_skew",
+    K_MINE = "pf_punch_mine";
 
 var DEFAULT_NAMES = ["Sikandar","Samir","Sahil","Nilesh","Abbas","Sachin"];
-var MARKS = [["in","came in"],["lo","out for lunch"],["li","back from lunch"],["out","left"]];
+/* Odd taps are coming in, even ones going out. Two words, and that is the
+   whole of it. */
+var MARKS = [["in","came in"],["out","went out"]];
 
-var NAMES = [], QUEUE = [], SEEN = { date:"", marks:[] }, SKEW = 0, BUSY = false;
+/* SEEN is what the sheet says; MINE is what was tapped on this phone today.
+   A tap leaves the queue the moment it is safely up, so without MINE it would
+   disappear off the screen until the sheet got round to echoing it back. */
+var NAMES = [], QUEUE = [], SEEN = { date:"", marks:[] }, MINE = { date:"", marks:[] },
+    SKEW = 0, BUSY = false;
 
 function get(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
 function put(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
@@ -133,6 +143,7 @@ function put(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e)
 NAMES = get(K_NAMES, DEFAULT_NAMES);
 QUEUE = get(K_Q, []);
 SEEN  = get(K_SEEN, { date:"", marks:[] });
+MINE  = get(K_MINE, { date:"", marks:[] });
 SKEW  = get(K_SKEW, 0);
 
 /* ---------- the clock ---------- */
@@ -168,21 +179,30 @@ function learnClock(serverHHMM, serverDate){
 
 /* ---------- what is known about today ---------- */
 function marksToday(){
-  if (SEEN.date !== today()) SEEN = { date: today(), marks: [] };
+  var d = today();
+  if (SEEN.date !== d) SEEN = { date:d, marks:[] };
+  if (MINE.date !== d) { MINE = { date:d, marks:[] }; put(K_MINE, MINE); }
   var all = SEEN.marks.slice();
-  QUEUE.forEach(function(q){ if (q.date === today()) all.push({ name:q.name, mark:q.mark, time:q.time }); });
-  return all;
+  MINE.marks.forEach(function(m){ all.push(m); });
+  QUEUE.forEach(function(q){ if (q.date === d) all.push({ name:q.name, mark:q.mark, time:q.time }); });
+  /* the same minute from two places is one tap */
+  var seen = {};
+  return all.filter(function(m){
+    var k = m.name + "|" + m.time;
+    if (seen[k]) return false;
+    seen[k] = 1; return true;
+  });
 }
+/* Everything this person has tapped today, earliest first. */
 function forPerson(name){
-  var mine = {};
-  marksToday().forEach(function(m){ if (m.name === name) mine[m.mark] = m.time; });
-  return mine;
+  return marksToday().filter(function(m){ return m.name === name; })
+    .map(function(m){ return m.time; })
+    .filter(function(t,i,a){ return a.indexOf(t) === i; })
+    .sort();
 }
-function nextFor(name){
-  var mine = forPerson(name);
-  for (var i=0; i<MARKS.length; i++) if (!mine[MARKS[i][0]]) return MARKS[i];
-  return null;
-}
+function isIn(name){ return forPerson(name).length % 2 === 1; }
+/* There is always a next tap - somebody can always step out and come back. */
+function nextFor(name){ return isIn(name) ? MARKS[1] : MARKS[0]; }
 
 /* ---------- the screen ---------- */
 function esc(s){
@@ -205,10 +225,15 @@ function niceDate(){
 function draw(){
   $("dateLine").textContent = niceDate();
   $("people").innerHTML = NAMES.map(function(name){
-    var nx = nextFor(name);
-    return '<button class="person' + (nx ? "" : " done") + '"'
-      + (nx ? ' onclick="mark(' + esc(JSON.stringify(name)) + ')"' : ' disabled')
-      + '>' + esc(name) + (nx ? '' : '<small>done for today</small>') + '</button>';
+    var mine = forPerson(name), inNow = mine.length % 2 === 1;
+    var last = mine.length ? ampm(mine[mine.length-1]) : "";
+    return '<button class="person' + (inNow ? " here" : "") + '"'
+      + ' onclick="mark(' + esc(JSON.stringify(name)) + ')">'
+      + esc(name)
+      + '<small>' + (mine.length
+          ? (inNow ? "in since " + last : "out at " + last)
+          : "tap to mark in") + '</small>'
+      + '</button>';
   }).join("")
   || '<div class="card muted">No names yet. Open <b>settings</b> below and type them, one to a line.</div>';
   var pend = QUEUE.length;
@@ -222,12 +247,17 @@ function draw(){
 /* ---------- marking ---------- */
 function mark(name){
   var nx = nextFor(name);
-  if (!nx) return;
+  var t = hhmm();
+  /* two taps in the same minute are the same tap - a double press, a handover */
+  if (forPerson(name).indexOf(t) >= 0) { say(esc(name) + " \u2014 already marked at " + ampm(t), "ok"); return; }
   var rec = { id: String(Date.now()) + Math.random().toString(36).slice(2,7),
-              date: today(), name: name, mark: nx[0], time: hhmm() };
+              date: today(), name: name, mark: nx[0], time: t };
   /* Written on the phone first, and shown as marked at once. Whether the
      internet is there decides when it goes up, not whether it counted. */
   QUEUE.push(rec); put(K_Q, QUEUE);
+  if (MINE.date !== rec.date) MINE = { date:rec.date, marks:[] };
+  MINE.marks.push({ name:rec.name, mark:rec.mark, time:rec.time });
+  put(K_MINE, MINE);
   draw();
   say(esc(name) + " — " + nx[1] + " at " + ampm(rec.time), "ok");
   if (navigator.vibrate) navigator.vibrate(45);
@@ -262,8 +292,13 @@ function take(d){
   if (d.shop) $("shop").textContent = d.shop;
   SEEN = { date: d.date, marks: [] };
   (d.staff || []).forEach(function(p){
-    Object.keys(p.marks || {}).forEach(function(k){
-      SEEN.marks.push({ name:p.name, mark:k, time:p.marks[k] });
+    var t = p.times;
+    /* the sheet sends the times in order; an older sheet still sends the four
+       named marks, which alternate the same way, so both read back */
+    if (!t) { t = []; ["in","lo","li","out"].forEach(function(k){
+      if (p.marks && p.marks[k]) t.push(p.marks[k]); }); }
+    t.forEach(function(time, i){
+      SEEN.marks.push({ name:p.name, mark:(i%2?"out":"in"), time:time });
     });
   });
   put(K_SEEN, SEEN);
